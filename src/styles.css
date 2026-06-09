@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* Charcoal dark theme — ember accent */
+    --background:         0 0% 10%;       /* #1a1a1a */
+    --surface:            0 0% 14%;       /* #242424 */
+    --elevated:           0 0% 17%;       /* #2b2b2b */
+    --foreground:         0 0% 97%;
+
+    --card:               0 0% 14%;
+    --card-foreground:    0 0% 97%;
+    --popover:            0 0% 14%;
+    --popover-foreground: 0 0% 97%;
+
+    --primary:            16 78% 56%;     /* ember #e85d3a */
+    --primary-foreground: 0 0% 10%;
+
+    --secondary:          0 0% 17%;
+    --secondary-foreground: 0 0% 97%;
+
+    --muted:              0 0% 17%;
+    --muted-foreground:   0 0% 60%;
+
+    --accent:             16 78% 56%;
+    --accent-foreground:  0 0% 10%;
+
+    --destructive:        0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border:             0 0% 22%;
+    --input:              0 0% 20%;
+    --ring:               16 78% 56%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-sans, 'DM Sans', sans-serif);
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ── Subtle grid background ─────────────────────────────────────── */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* ── Mono label ─────────────────────────────────────────────────── */
+.mono-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
+}
+
+/* ── Fade-up reveal ─────────────────────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.reveal { opacity: 0; }
+.reveal.in { animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+
+/* ── Waveform bars ──────────────────────────────────────────────── */
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.25); }
+  50%      { transform: scaleY(1); }
+}
+.wave-bar { animation: wave 1.1s ease-in-out infinite; transform-origin: center; }
+
+/* ── Blink ──────────────────────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.25; }
+}
+.animate-blink { animation: blink 1.6s infinite; }
+
+/* ── Spinner ────────────────────────────────────────────────────── */
+.spinner {
+  border: 2px solid rgba(255,255,255,0.2);
+  border-top-color: currentColor;
+  border-radius: 9999px;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Ember glow ─────────────────────────────────────────────────── */
+.glow-ember {
+  box-shadow: 0 0 0 1px hsla(16,78%,56%,0.4), 0 12px 40px -12px hsla(16,78%,56%,0.45);
+}
+
+/* ── Ember haze background ──────────────────────────────────────── */
+.ember-haze::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 50% at 80% 0%, hsla(16,78%,56%,0.18), transparent 70%),
+    radial-gradient(50% 40% at 0% 100%, hsla(16,78%,56%,0.10), transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Range slider polish ────────────────────────────────────────── */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: hsl(var(--border));
+  border-radius: 9999px;
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px; height: 16px;
+  background: hsl(var(--primary));
+  border-radius: 9999px;
+  cursor: pointer;
+  box-shadow: 0 0 0 4px hsla(16,78%,56%,0.15);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 16px; height: 16px;
+  background: hsl(var(--primary));
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 0 4px hsla(16,78%,56%,0.15);
+}
+
+/* ── bg-surface / bg-elevated as utilities ──────────────────────── */
+.bg-surface   { background-color: hsl(var(--surface)); }
+.bg-elevated  { background-color: hsl(var(--elevated)); }
+.text-surface { color: hsl(var(--surface)); }
